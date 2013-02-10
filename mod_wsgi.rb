@@ -27,6 +27,10 @@ class ModWsgi < Formula
       cflags.gsub! "-Wc,'-arch ppc64'", ""
       cflags.gsub! "-Wc,'-arch x86_64'", "" if Hardware.is_32_bit?
       s.change_make_var! "CFLAGS", cflags
+      
+      cppflags = s.get_make_var("CPPFLAGS")
+      cppflags.gsub! "-F/usr/local/Frameworks", "-Wc,-F/usr/local/Frameworks"
+      s.change_make_var! "CPPFLAGS", cppflags
 
       # --libexecdir parameter to ./configure isn't changing this, so cram it in
       # This will be where the Apache module ends up, and we don't want to touch
